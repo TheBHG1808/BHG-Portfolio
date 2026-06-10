@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -lt ~/Downloads/*.png ~/Downloads/*.jpg ~/Downloads/*.jpeg ~/Downloads/*.webp 2>/dev/null | head -15)"
+    ]
+  }
+}
