@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zempler Bank — APP Fraud Prevention · Bethany Huff Guelbert</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+
+@font-face {
+  font-family: 'Emilea';
+  src: url('fonts/Emilea.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --parchment:  #F2EDE3;
+  --cream:      #FAF8F3;
+  --ink:        #1C2318;
+  --ink-soft:   #3A4336;
+  --terracotta: #8B4F3F;
+  --terra-pale: #C4836F;
+  --warm-mid:   #C9B99A;
+  --warm-light: #E4DAC8;
+  --sage:       #5C6B4E;
+  --pad: clamp(1.5rem, 5vw, 5rem);
+}
+
+::selection { background: var(--terracotta); color: var(--parchment); }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.25rem var(--pad);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(242, 237, 227, 0.93);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--warm-light);
+}
+
+.nav-name {
+  font-family: 'Emilea', serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.nav-back {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: color 0.25s;
+}
+.nav-back:hover { color: var(--terracotta); }
+.nav-back svg { transition: transform 0.25s; }
+.nav-back:hover svg { transform: translateX(-3px); }
+
+/* ── CASE HERO ── */
+.case-hero {
+  padding: 9rem var(--pad) 5rem;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--warm-light);
+}
+
+.case-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(139,79,63,0.18) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.case-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.case-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.case-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: var(--warm-mid);
+}
+
+.case-title {
+  font-family: 'Emilea', serif;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 2rem;
+}
+
+.case-title em {
+  font-style: normal;
+  color: var(--terracotta);
+  display: block;
+}
+
+.case-subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ink-soft);
+  max-width: 42rem;
+  line-height: 1.65;
+  margin-bottom: 3.5rem;
+}
+
+.case-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  border-top: 1px solid var(--warm-light);
+  padding-top: 2rem;
+}
+
+.case-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.case-meta-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--warm-mid);
+}
+
+.case-meta-value {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.case-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.case-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  border: 1px solid var(--terracotta);
+  border-radius: 100px;
+  padding: 0.3rem 0.85rem;
+}
+
+/* ── HERO IMAGE ── */
+.case-hero-image {
+  margin-top: 4rem;
+  border-radius: 6px;
+  overflow: hidden;
+  background: transparent;
+  position: relative;
+}
+
+.case-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.case-hero-image-placeholder {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(242,237,227,0.25);
+}
+
+/* ── CONTENT LAYOUT ── */
+.case-body {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+/* ── SECTION ── */
+.case-section {
+  padding: 5rem 0;
+  border-bottom: 1px solid var(--warm-light);
+}
+
+.case-section:last-of-type {
+  border-bottom: none;
+}
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--warm-mid);
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--warm-light);
+}
+
+/* ── TWO-COLUMN LAYOUT ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.two-col-wide {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* ── TYPOGRAPHY ── */
+.section-heading {
+  font-family: 'Emilea', serif;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+
+.section-heading em {
+  font-style: italic;
+  color: var(--terracotta);
+}
+
+.subsection-heading {
+  font-family: 'Emilea', serif;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 1rem;
+  margin-top: 2.5rem;
+}
+
+.step-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--warm-mid);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+p.body-copy {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  margin-bottom: 1.25rem;
+}
+
+p.body-copy:last-child { margin-bottom: 0; }
+
+.pull-quote {
+  font-family: 'Emilea', serif;
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--ink);
+  border-left: 2px solid var(--terracotta);
+  padding-left: 1.75rem;
+  margin: 2.5rem 0;
+}
+
+/* ── STAT ROW ── */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 3rem 0;
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--warm-light);
+  border-bottom: 1px solid var(--warm-light);
+}
+
+.stat-item {}
+
+.stat-number {
+  font-family: 'Emilea', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--terracotta);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ── PROCESS STEPS ── */
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.process-step {
+  padding: 1.75rem;
+  background: var(--cream);
+  border: 1px solid var(--warm-light);
+  border-radius: 4px;
+}
+
+.process-step-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.process-step h4 {
+  font-family: 'Emilea', serif;
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 0.6rem;
+  line-height: 1.2;
+}
+
+.process-step p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+/* ── IMAGE BLOCKS ── */
+.case-image {
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--cream);
+  border: 1px solid var(--warm-light);
+  margin: 2.5rem 0;
+}
+
+.case-image img {
+  width: 100%;
+  display: block;
+}
+
+.case-image-placeholder {
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--warm-mid);
+}
+
+.image-caption {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--warm-mid);
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--warm-light);
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin: 2.5rem 0;
+}
+
+.image-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin: 2.5rem 0;
+}
+
+/* ── OUTCOME CARDS ── */
+.outcome-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.outcome-card {
+  padding: 2rem;
+  border: 1px solid var(--warm-light);
+  border-radius: 4px;
+}
+
+.outcome-card-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.outcome-card h4 {
+  font-family: 'Emilea', serif;
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 0.6rem;
+  line-height: 1.2;
+}
+
+.outcome-card p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+/* ── BULLET LIST ── */
+ul.case-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0;
+}
+
+ul.case-list li {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  padding-left: 1.5rem;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+ul.case-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--terracotta);
+  font-weight: 300;
+}
+
+/* ── NEXT CASE STUDY ── */
+.next-case {
+  background: var(--ink);
+  padding: 5rem var(--pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.next-case:hover { background: #141a11; }
+
+.next-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(242,237,227,0.38);
+  margin-bottom: 0.75rem;
+}
+
+.next-title {
+  font-family: 'Emilea', serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 300;
+  color: var(--parchment);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.next-title em {
+  font-style: normal;
+  color: var(--terracotta);
+}
+
+.next-arrow {
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid rgba(242,237,227,0.18);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.25s, transform 0.25s;
+}
+
+.next-case:hover .next-arrow {
+  border-color: var(--terracotta);
+  transform: translateX(4px);
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 1.75rem var(--pad);
+  background: var(--ink);
+  border-top: 1px solid rgba(242,237,227,0.07);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+footer p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  color: rgba(242,237,227,0.28);
+  letter-spacing: 0.04em;
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+footer a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  color: rgba(242,237,227,0.38);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.22s;
+}
+footer a:hover { color: var(--terracotta); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .two-col, .two-col-wide { grid-template-columns: 1fr; gap: 2.5rem; }
+  .stat-row { grid-template-columns: 1fr 1fr; }
+  .outcome-grid { grid-template-columns: 1fr; }
+  .image-grid-3 { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .stat-row { grid-template-columns: 1fr; }
+  .image-grid, .image-grid-3 { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr; }
+}
+
+/* ── PERSONA CARD ── */
+.persona-card {
+  margin-top: 1.5rem;
+  border: 1px solid var(--warm-light);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.persona-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.75rem 2rem;
+  background: var(--ink);
+  border-bottom: 1px solid rgba(242,237,227,0.1);
+}
+
+.persona-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(242,237,227,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--terra-pale);
+  flex-shrink: 0;
+}
+
+.persona-name {
+  font-family: 'Emilea', serif;
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--parchment);
+  line-height: 1.2;
+  margin-bottom: 0.3rem;
+}
+
+.persona-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--terra-pale);
+}
+
+.persona-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--cream);
+}
+
+.persona-item {
+  padding: 1.5rem 2rem;
+  border-right: 1px solid var(--warm-light);
+  border-bottom: 1px solid var(--warm-light);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.persona-item:nth-child(2n) { border-right: none; }
+.persona-item:nth-last-child(-n+2) { border-bottom: none; }
+
+.persona-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+}
+
+.persona-value {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 600px) {
+  .persona-grid { grid-template-columns: 1fr; }
+  .persona-item { border-right: none; border-bottom: 1px solid var(--warm-light); }
+  .persona-item:last-child { border-bottom: none; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-name">BHG</a>
+  <a href="index.html#work" class="nav-back">
+    <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
+      <path d="M6 1L1 5M1 5L6 9M1 5H15" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Back to work
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="case-hero">
+  <div class="case-hero-inner">
+    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+      <img src="images/logo-zempler.png" alt="Zempler Bank" style="width: 48px; height: 48px; border-radius: 12px; display: block;">
+      <p class="case-eyebrow" style="margin-bottom: 0;">Zempler Bank &nbsp;·&nbsp; 2023</p>
+    </div>
+    <h1 class="case-title">APP Fraud<em>Prevention.</em></h1>
+    <p class="case-subtitle">Designing Confirmation of Payee: a regulatory-mandated fraud prevention flow that had to feel trustworthy, clear, and human inside a mobile banking app.</p>
+
+    <div class="case-meta">
+      <div class="case-meta-item">
+        <span class="case-meta-label">My role</span>
+        <span class="case-meta-value">Lead Product Designer</span>
+      </div>
+      <div class="case-meta-item">
+        <span class="case-meta-label">Timeline</span>
+        <span class="case-meta-value">6 months</span>
+      </div>
+      <div class="case-meta-item">
+        <span class="case-meta-label">Platform</span>
+        <span class="case-meta-value">iOS &amp; Android</span>
+      </div>
+      <div class="case-meta-item">
+        <span class="case-meta-label">Disciplines</span>
+        <div class="case-tags">
+          <span class="case-tag">UX Strategy</span>
+          <span class="case-tag">Interaction Design</span>
+          <span class="case-tag">Research</span>
+          <span class="case-tag">Compliance</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-hero-image">
+      <img src="images/Zempler Hero Image.png" alt="Zempler Bank customer using the app">
+    </div>
+  </div>
+</section>
+
+<div class="case-body">
+
+  <!-- PROJECT OVERVIEW -->
+  <section class="case-section">
+    <p class="section-label">01 &nbsp; Project Overview</p>
+    <div class="two-col-wide">
+      <div>
+        <h2 class="section-heading">The landscape of security is <em>evolving fast.</em></h2>
+        <p class="body-copy">The landscape of security in personal banking is rapidly evolving, and so are the tactics used by scammers and fraudsters that threaten our customers' financial security. Zempler Bank needed to collaborate with PayUK to introduce new "Confirmation of Payee" and "Purpose of Payment" features that not only enable users to confirm that a payee's details are correct, but to also help educate them on the risks of APP Fraud and to keep their money safe.</p>
+        <p class="body-copy">Confirmation of Payee (CoP) is a Payment Services Regulator mandate requiring banks to verify that the name on an account matches the payment details the user has entered before any money moves. Done poorly, it creates friction and erodes trust. Done well, it becomes a safety net that customers actually value.</p>
+        <p class="body-copy">My job was to make sure we landed firmly in the latter category.</p>
+      </div>
+      <div>
+        <div class="stat-row" style="grid-template-columns: 1fr; border: none; padding: 0; gap: 1.5rem; margin: 0;">
+          <div class="stat-item">
+            <span class="stat-number">£485m</span>
+            <span class="stat-label">Lost to APP fraud in the UK in 2022</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">PSR</span>
+            <span class="stat-label">Regulatory mandate driving the work</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">1 team</span>
+            <span class="stat-label">Cross-functional squad: design, product, engineering, compliance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USER RESEARCH -->
+  <section class="case-section">
+    <p class="section-label">02 &nbsp; User Research</p>
+
+    <div class="two-col-wide">
+      <div>
+        <h2 class="section-heading">Understanding the <em>real problem.</em></h2>
+        <p class="body-copy">Before touching Figma, I wanted to understand how Zempler's customers were actually making payments, and what was going wrong. I led a research sprint combining behavioural data analysis, user interviews, and competitive benchmarking across major UK banks.</p>
+        <p class="body-copy">The findings challenged some of our initial assumptions.</p>
+      </div>
+      <div>
+        <blockquote class="pull-quote">"I didn't know I'd been scammed until I checked my bank the next morning."</blockquote>
+      </div>
+    </div>
+
+    <span class="step-num" style="margin-top: 3rem; display: block;">Persona</span>
+    <div class="persona-card">
+      <div class="persona-header">
+        <div class="persona-avatar">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="13" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M4 32c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <p class="persona-name">The Micro Business Owner</p>
+          <p class="persona-tag">Primary user &nbsp;·&nbsp; 80%+ of customer base</p>
+        </div>
+      </div>
+      <div class="persona-grid">
+        <div class="persona-item">
+          <span class="persona-label">Income level</span>
+          <span class="persona-value">Low to mid; business revenue often seasonal or variable</span>
+        </div>
+        <div class="persona-item">
+          <span class="persona-label">Financial behaviour</span>
+          <span class="persona-value">Total business cash typically held within their Zempler account, with no financial buffer elsewhere</span>
+        </div>
+        <div class="persona-item">
+          <span class="persona-label">Risk attitude</span>
+          <span class="persona-value">Highly risk averse. Financial loss is existential, not just inconvenient</span>
+        </div>
+        <div class="persona-item">
+          <span class="persona-label">Key need</span>
+          <span class="persona-value">Quick, direct action. Time is money; friction without purpose is a blocker</span>
+        </div>
+      </div>
+    </div>
+
+    <span class="step-num" style="margin-top: 3rem; display: block;">Pain Points</span>
+    <div class="process-steps">
+      <div class="process-step">
+        <span class="process-step-num">01</span>
+        <h4>Social pressures</h4>
+        <p>Tactics used by fraudsters typically revolve around emotional and social pressures, so the measures we put in place need to be strong enough to override that pressure.</p>
+      </div>
+      <div class="process-step">
+        <span class="process-step-num">02</span>
+        <h4>Remote risk</h4>
+        <p>We cannot physically be with our users at all times, so we needed to make sure that our users were informed, educated, and empowered to spot fraud.</p>
+      </div>
+      <div class="process-step">
+        <span class="process-step-num">03</span>
+        <h4>Cannot block</h4>
+        <p>We cannot legally stop a user from sending a payment, so there is always a risk of slipping through the net, so it needed to be a tight net.</p>
+      </div>
+      <div class="process-step">
+        <span class="process-step-num">04</span>
+        <h4>Warning blindness</h4>
+        <p>Generic fraud warnings were being ignored across the board. Users had been conditioned to dismiss them as boilerplate rather than reading them as genuine signals.</p>
+      </div>
+    </div>
+
+    <span class="step-num" style="margin-top: 3rem; display: block;">User Journey Research</span>
+    <p class="body-copy">I compared the "Add Payee → Make Payment" journeys across Barclays, Starling, Lloyds Bank, Santander, Monzo, First Direct, Nat West, and Nationwide.</p>
+    <p class="body-copy">I mapped the full payment journey across five distinct user archetypes, from the habitual bill payer to the first-time business transfer, to identify exactly where CoP signals needed to land. The journey map exposed a critical gap: the moment of greatest cognitive load was also the moment we were planning to surface the most complex information.</p>
+
+    <div class="case-image">
+      <div class="case-image-placeholder">User journey map: payment archetypes and CoP touchpoints</div>
+      <div class="image-caption">Journey map across five user archetypes, highlighting CoP intervention points</div>
+    </div>
+
+    <p class="body-copy">Usability testing on competitor implementations revealed that Match / No Match / Partial Match language alone was insufficient. Users needed to understand what action to take, not just receive a verdict. This became a guiding principle throughout the design process.</p>
+  </section>
+
+  <!-- STARTING THE DESIGN -->
+  <section class="case-section">
+    <p class="section-label">03 &nbsp; Starting the Design</p>
+
+    <h2 class="section-heading">From insight <em>to structure.</em></h2>
+
+    <span class="step-num" style="margin-top: 2rem; display: block;">01 &nbsp; Mapping</span>
+    <p class="body-copy">I started by mapping out the full technical logic of CoP. The PSR spec defines four possible outcomes: Match, No Match, Partial Match, and Unable to Check. Each needed its own designed response, and each had different risk profiles. Mapping these before designing ensured the system was coherent, not just individual screens.</p>
+
+    <div class="case-image">
+      <div class="case-image-placeholder">Flow map: four CoP outcomes and decision logic</div>
+      <div class="image-caption">Decision logic map for the four PSR-defined CoP outcomes</div>
+    </div>
+
+    <span class="step-num" style="margin-top: 3rem; display: block;">02 &nbsp; Feature Splitting</span>
+    <p class="body-copy">Confirmation of Payee isn't a single feature, it's a series of well-timed, considered touchpoints across different payment types, user states, and account contexts. I worked with product to split the scope into shippable phases: new payees first (highest risk profile), then existing payees, then edge cases like international recipients and business accounts. This allowed us to learn from real usage before over-engineering the harder paths.</p>
+
+    <div class="image-grid">
+      <div class="case-image" style="margin: 0;">
+        <div class="case-image-placeholder" style="aspect-ratio: 4/3;">Feature map: phase 1 scope</div>
+      </div>
+      <div class="case-image" style="margin: 0;">
+        <div class="case-image-placeholder" style="aspect-ratio: 4/3;">Feature map: phase 2 and edge cases</div>
+      </div>
+    </div>
+
+    <span class="step-num" style="margin-top: 3rem; display: block;">03 &nbsp; Roadblock</span>
+    <p class="body-copy">The biggest design challenge was the "No Match" state. Regulatory guidance required us to show a clear warning, but research showed that overly alarming UI caused users to abandon legitimate payments. We needed to be truthful without being paralysing.</p>
+    <p class="body-copy">The solution was to reframe the message around action rather than verdict. Instead of "Name does not match," we designed toward "Double-check these details before continuing", surfacing the specific discrepancy and giving the user a clear path, whether that was continuing with awareness or cancelling safely.</p>
+
+    <span class="step-num" style="margin-top: 3rem; display: block;">04 &nbsp; Lo-fi Designs</span>
+    <p class="body-copy">Wireframes were kept deliberately low fidelity to keep conversation focused on the logic, not the aesthetics. I ran four rounds of internal critique with product, engineering, and compliance before a single colour was applied.</p>
+
+    <div class="image-grid">
+      <div class="case-image" style="margin: 0;">
+        <div class="case-image-placeholder" style="aspect-ratio: 4/3;">Lo-fi wireframes: Match state</div>
+      </div>
+      <div class="case-image" style="margin: 0;">
+        <div class="case-image-placeholder" style="aspect-ratio: 4/3;">Lo-fi wireframes: No Match state</div>
+      </div>
+    </div>
+
+    <span class="step-num" style="margin-top: 3rem; display: block;">05 &nbsp; Usability Guides</span>
+    <p class="body-copy">I created an internal usability guide (part pattern library, part decision framework) so that as the feature expanded, every designer and engineer working on adjacent flows could apply CoP states consistently. This documented the four outcome states, their copy principles, visual treatments, and escalation paths.</p>
+  </section>
+
+  <!-- REFINING DESIGN -->
+  <section class="case-section">
+    <p class="section-label">04 &nbsp; Refining Design</p>
+
+    <div class="two-col-wide">
+      <div>
+        <h2 class="section-heading">Screens, <em>glorious screens.</em></h2>
+        <p class="body-copy">High-fidelity design brought the logic to life within Zempler's existing design system. The four CoP states each needed a distinct visual register: clear enough to be immediately understood, but measured enough not to cause undue alarm.</p>
+        <p class="body-copy">Colour, iconography, and copy were all treated as functional tools, not decoration. Green for match didn't mean "safe." Amber for partial didn't mean "suspicious." Each state was tested independently with users to verify the mental model it created.</p>
+      </div>
+      <div>
+        <blockquote class="pull-quote">"The goal was calm confidence, not false reassurance. Users should feel informed and in control."</blockquote>
+      </div>
+    </div>
+
+    <div class="image-grid-3" style="margin-top: 3rem;">
+      <div class="case-image" style="margin: 0;">
+        <div class="case-image-placeholder" style="aspect-ratio: 9/16;">Match screen</div>
+        <div class="image-caption">Match state: confirmation</div>
+      </div>
+      <div class="case-image" style="margin: 0;">
+        <div class="case-image-placeholder" style="aspect-ratio: 9/16;">Partial match screen</div>
+        <div class="image-caption">Partial match: clarification</div>
+      </div>
+      <div class="case-image" style="margin: 0;">
+        <div class="case-image-placeholder" style="aspect-ratio: 9/16;">No match screen</div>
+        <div class="image-caption">No match: action-led warning</div>
+      </div>
+    </div>
+
+    <div class="image-grid" style="margin-top: 1.25rem;">
+      <div class="case-image" style="margin: 0;">
+        <div class="case-image-placeholder" style="aspect-ratio: 16/10;">Unable to check: fallback state</div>
+        <div class="image-caption">Unable to check state</div>
+      </div>
+      <div class="case-image" style="margin: 0;">
+        <div class="case-image-placeholder" style="aspect-ratio: 16/10;">Business payee: edge case handling</div>
+        <div class="image-caption">Business account edge case</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTCOME -->
+  <section class="case-section">
+    <p class="section-label">05 &nbsp; Outcome</p>
+
+    <div class="two-col-wide">
+      <div>
+        <h2 class="section-heading">Shipped on time. <em>Trusted by users.</em></h2>
+        <p class="body-copy">CoP launched on schedule with full PSR compliance. Post-launch usability testing showed a significant improvement in user comprehension of payment verification states compared to the competitor benchmark we had set at the start of the project.</p>
+        <p class="body-copy">More importantly, the feature felt like a natural extension of the Zempler app rather than a bolted-on compliance obligation. Something that rarely happens with regulatory work.</p>
+      </div>
+      <div>
+        <div class="stat-row" style="grid-template-columns: 1fr; border: none; padding: 0; gap: 1.5rem; margin: 0;">
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">PSR compliance on launch</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">4</span>
+            <span class="stat-label">CoP outcome states fully designed and tested</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outcome-grid">
+      <div class="outcome-card">
+        <span class="outcome-card-label">Takeaways</span>
+        <h4>Compliance and clarity aren't opposites</h4>
+        <p>Regulatory mandates often feel like constraints, but approaching CoP as a trust-building opportunity rather than a legal checkbox produced a better outcome for everyone. The tightest brief often demands the sharpest thinking.</p>
+      </div>
+      <div class="outcome-card">
+        <span class="outcome-card-label">Takeaways</span>
+        <h4>Language is a design material</h4>
+        <p>The biggest design decisions on this project weren't visual, they were about copy. Reframing "No Match" from a verdict to an invitation to verify changed user behaviour more than any visual treatment could have.</p>
+      </div>
+    </div>
+
+    <span class="step-num" style="margin-top: 3rem; display: block;">Next Steps</span>
+    <ul class="case-list">
+      <li>Expand CoP coverage to existing payees and scheduled payment reviews</li>
+      <li>Introduce in-app education for common false-negative scenarios (e.g. businesses trading under a different name)</li>
+      <li>Monitor abandonment rates at the No Match state to inform further copy refinement</li>
+      <li>Feed learnings from CoP into a broader fraud communication framework for the app</li>
+    </ul>
+  </section>
+
+</div>
+
+<!-- NEXT CASE STUDY -->
+<a href="lseg.html" class="next-case">
+  <div>
+    <p class="next-label">Next case study</p>
+    <p class="next-title">LSEG<em> Digital Markets</em></p>
+  </div>
+  <div class="next-arrow">
+    <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+      <path d="M11 1L17 7M17 7L11 13M17 7H1" stroke="rgba(242,237,227,0.6)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Bethany Huff Guelbert &nbsp;·&nbsp; made with tea + conviction</p>
+  <ul class="footer-links">
+    <li><a href="https://thebhg.co.uk" target="_blank" rel="noopener">thebhg.co.uk</a></li>
+    <li><a href="mailto:bethany.huffguelbert@gmail.com">Email</a></li>
+  </ul>
+</footer>
+
+
+</body>
+</html>

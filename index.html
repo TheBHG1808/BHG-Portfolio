@@ -422,6 +422,29 @@ section { padding: 7rem var(--pad); }
 .work-status.available { color: var(--terracotta); }
 .work-status.available::before { background: var(--terracotta); }
 
+.work-case-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  border: 1px solid var(--warm-light);
+  border-radius: 100px;
+  padding: 0.55rem 1.1rem;
+  margin-top: 1.25rem;
+  transition: color 0.25s, border-color 0.25s, gap 0.25s;
+}
+.work-case-link:hover {
+  color: var(--terracotta);
+  border-color: var(--terracotta);
+  gap: 0.9rem;
+}
+
 .work-image {
   width: 100%;
   border-radius: 6px;
@@ -1083,7 +1106,7 @@ footer a:hover { color: var(--terracotta); }
           <span class="scope-tag">Informal team lead</span>
           <span class="scope-tag">Blockchain infrastructure</span>
         </div>
-        <p class="work-desc">Leading UX strategy across six organisational silos for LSEG's blockchain-enabled capital markets platform. Founded and run the UI/UX Community of Practice, own the design system migration, and informally lead a team of designers, all while driving end-to-end product design at institutional scale.</p>
+        <p class="work-desc">LSEG's Digital Markets Infrastructure (DMI) is a blockchain-enabled platform designed to modernise the world of private funds, connecting seamlessly to existing financial systems. By bridging traditional finance with digital-asset infrastructure, DMI aims to create a scalable, global foundation for more accessible, efficient, and integrated capital markets.</p>
         <span class="work-status">NDA - available on request</span>
       </div>
       <div class="work-image">
@@ -1106,7 +1129,10 @@ footer a:hover { color: var(--terracotta); }
           <span class="scope-tag">B2B + B2C</span>
         </div>
         <p class="work-desc">Owned end-to-end UX for a suite of high-stakes payment journeys: international transfers, Apple &amp; Google Pay via MDES, and Confirmation of Payee, spanning both B2B and B2C customer bases at a fast-moving challenger bank.</p>
-        <span class="work-status available">Full case study available</span>
+        <a href="zempler-cop.html" class="work-case-link">
+          View case study
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M9 1L13 5M13 5L9 9M13 5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
       </div>
       <div class="work-image">
         <img src="images/snapshot-zempler.png" alt="Zempler Bank product design work">
@@ -1133,25 +1159,25 @@ footer a:hover { color: var(--terracotta); }
 <!-- APPROACH -->
 <section id="approach">
   <p class="section-label">How I work</p>
-  <p class="approach-intro">Good design is infrastructure. It holds things up long after the meeting ends.</p>
+  <p class="approach-intro">Good design makes it come to life. Good leadership makes it last.</p>
   <div class="approach-grid">
 
     <div class="approach-item">
       <p class="approach-num">01</p>
-      <h3 class="approach-heading">Systems before screens.</h3>
-      <p class="approach-body">Good design starts long before any interface is drawn. I work to understand the ecosystem first: the people, the constraints, the invisible structures, so that what gets built is coherent at every level, not just the surface.</p>
+      <h3 class="approach-heading">Leadership.</h3>
+      <p class="approach-body">Leadership begins with building psychological safety, creating a space where teams feel brave enough to explore, challenge assumptions, and champion our users with conviction. I lead with a blend of energy and steadiness, coaching designers to grow with confidence while shaping rituals that help teams move together with purpose. I've partnered with C-suite leaders to align vision, culture, and execution across organisations ranging from scrappy single-digit start-ups to global companies, always grounding the work in clarity, empathy, and collective momentum.</p>
     </div>
 
     <div class="approach-item">
       <p class="approach-num">02</p>
-      <h3 class="approach-heading">Design that earns trust.</h3>
-      <p class="approach-body">In complex domains (financial infrastructure, regulated products, high-stakes journeys) trust is the product. I design for clarity, consistency, and confidence, because users who don't trust an interface don't use it.</p>
+      <h3 class="approach-heading">Strategy.</h3>
+      <p class="approach-body">I shape product strategy by connecting user insight with the realities of business and technology. Partnering closely with product and engineering, I help define north stars, focus opportunities, and translate complexity into clear, actionable direction. From early-stage products finding their footing to global organisations navigating intricate ecosystems, I bring a future-focused approach that keeps teams aligned, intentional, and moving confidently toward meaningful impact.</p>
     </div>
 
     <div class="approach-item">
       <p class="approach-num">03</p>
-      <h3 class="approach-heading">Leadership as a design practice.</h3>
-      <p class="approach-body">The best design thinking I do happens in rooms with other people. Whether I'm running a CoP, mentoring a junior, or aligning a cross-functional team, I apply the same rigour I bring to craft. Because how a team works is itself a system worth designing.</p>
+      <h3 class="approach-heading">Enhancing.</h3>
+      <p class="approach-body">I'm a product designer who pairs bold curiosity with disciplined dedication. I move comfortably from insight to execution, shaping experiences that honour usability, accessibility, and aesthetic clarity in equal measure. Whether I'm building a design system for a flagship product from a blank Figma board or untangling complex cross-functional flows, I bring an optimistic, thoughtful energy that ensures the work exceeds user needs and business goals.</p>
     </div>
 
   </div>
@@ -1167,10 +1193,10 @@ footer a:hover { color: var(--terracotta); }
     </div>
 
     <div class="about-text">
-      <p class="about-intro">I make complex things feel inevitable.</p>
-      <p class="about-body">Seven years across fintech, legaltech, and SaaS have taught me that the hardest design problems are rarely about pixels. They're about clarity of thought, quality of relationships, and the patience to keep asking why until something becomes obvious.</p>
-      <p class="about-body">I'm currently a Senior Product Designer at LSEG, where I lead the UI/UX Community of Practice across six organisational silos, own a design system migration, and informally lead a team of designers. I work at the intersection of strategy and craft, and I care about both in equal measure.</p>
-      <p class="about-body">I believe in design that's rigorous without being rigid, human without being naive, and ambitious without losing sight of the person at the end of it. (Also: a good diagram solves more arguments than you'd expect.)</p>
+      <p class="about-intro">I make the complex, compelling.</p>
+      <p class="about-body">Nine years across fintech, legaltech, and SaaS have taught me that the hardest design problems are solved through conversations, not canvasses. They're about clarity of thought, quality of relationships, and the patience to keep asking "why?".</p>
+      <p class="about-body">I'm currently a Senior Product Designer at LSEG, where I lead the UI/UX Community of Practice across seven organisational silos combining design and engineering, and lead a team of designers.</p>
+      <p class="about-body">I believe in design that's rigorous without being rigid, human without being naive, and ambitious without losing sight of the person at the end of it. (Also, a good diagram solves more arguments than you'd expect.)</p>
 
       <p class="expertise-label">Expertise</p>
       <div class="expertise-tags">
@@ -1255,12 +1281,13 @@ footer a:hover { color: var(--terracotta); }
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2025 Bethany Huff Guelbert &nbsp;·&nbsp; made with ☕ + conviction</p>
+  <p>© 2025 Bethany Huff Guelbert &nbsp;·&nbsp; made with tea + conviction</p>
   <ul class="footer-links">
     <li><a href="https://thebhg.co.uk" target="_blank" rel="noopener">thebhg.co.uk</a></li>
     <li><a href="mailto:bethany.huffguelbert@gmail.com">Email</a></li>
   </ul>
 </footer>
+
 
 </body>
 </html>
