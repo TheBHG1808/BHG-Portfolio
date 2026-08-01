@@ -944,9 +944,8 @@ footer a:hover { color: var(--terracotta); }
   <div class="hero-content">
     <div class="hero-badge">
       <span class="dot"></span>
-      Open to something great
+      Product Design Lead
     </div>
-    <p class="hero-eyebrow">Product Design Leader</p>
     <h1 class="hero-name">
       Bethany<br>
       <em>Huff Guelbert</em>
@@ -1224,7 +1223,7 @@ footer a:hover { color: var(--terracotta); }
           <p class="cv-role">Senior Product Designer, DMI</p>
           <p class="cv-company">London Stock Exchange Group</p>
         </div>
-        <span class="cv-dates">2024–Present</span>
+        <span class="cv-dates">2025–Present</span>
       </div>
 
       <div class="cv-entry">
@@ -1278,13 +1277,14 @@ footer a:hover { color: var(--terracotta); }
         linkedin.com/in/bethany-huff-guelbert
       </a>
     </div>
-    <span class="contact-location">Based in Guildford, Surrey &nbsp;·&nbsp; I reply to every email. Yes, every one.</span>
+    <span class="contact-location">Based in Guildford, Surrey</span>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2025 Bethany Huff Guelbert &nbsp;·&nbsp; made with tea + conviction</p>
+  <p>© <span id="footer-year"></span> Bethany Huff Guelbert &nbsp;·&nbsp; made with tea + conviction</p>
+  <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
   <ul class="footer-links">
     <li><a href="https://thebhg.co.uk" target="_blank" rel="noopener">thebhg.co.uk</a></li>
     <li><a href="mailto:bethany.huffguelbert@gmail.com">Email</a></li>

@@ -872,7 +872,8 @@ footer a:hover { color: var(--terracotta); }
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2025 Bethany Huff Guelbert &nbsp;·&nbsp; made with tea + conviction</p>
+  <p>© <span id="footer-year"></span> Bethany Huff Guelbert &nbsp;·&nbsp; made with tea + conviction</p>
+  <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
   <ul class="footer-links">
     <li><a href="https://thebhg.co.uk" target="_blank" rel="noopener">thebhg.co.uk</a></li>
     <li><a href="mailto:bethany.huffguelbert@gmail.com">Email</a></li>
