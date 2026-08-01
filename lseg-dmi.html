@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LSEG DMI — Digital Markets Infrastructure · Bethany Huff Guelbert</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+
+@font-face {
+  font-family: 'Emilea';
+  src: url('fonts/Emilea.otf') format('opentype');
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --parchment:  #F2EDE3;
+  --cream:      #FAF8F3;
+  --ink:        #1C2318;
+  --ink-soft:   #3A4336;
+  --terracotta: #8B4F3F;
+  --terra-pale: #C4836F;
+  --warm-mid:   #C9B99A;
+  --warm-light: #E4DAC8;
+  --sage:       #5C6B4E;
+  --pad: clamp(1.5rem, 5vw, 5rem);
+}
+
+::selection { background: var(--terracotta); color: var(--parchment); }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.25rem var(--pad);
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(242,237,227,0.93);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--warm-light);
+}
+.nav-name {
+  font-family: 'Emilea', serif; font-size: 1.15rem;
+  letter-spacing: 0.04em; color: var(--ink); text-decoration: none;
+}
+.nav-back {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft);
+  text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem;
+  transition: color 0.25s;
+}
+.nav-back:hover { color: var(--terracotta); }
+.nav-back svg { transition: transform 0.25s; }
+.nav-back:hover svg { transform: translateX(-3px); }
+
+/* ── HERO ── */
+.case-hero {
+  padding: 9rem var(--pad) 5rem;
+  position: relative; overflow: hidden;
+  border-bottom: 1px solid var(--warm-light);
+}
+.case-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(139,79,63,0.18) 1px, transparent 1px);
+  background-size: 32px 32px; pointer-events: none; z-index: 0;
+}
+.case-hero-inner { position: relative; z-index: 1; max-width: 72rem; margin: 0 auto; }
+
+.case-eyebrow {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+  font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--ink-soft); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.case-eyebrow::before {
+  content: ''; display: inline-block; width: 2rem; height: 1px; background: var(--warm-mid);
+}
+.case-title {
+  font-family: 'Emilea', serif; font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 300; line-height: 0.95; letter-spacing: -0.02em;
+  color: var(--ink); margin-bottom: 2rem;
+}
+.case-title em { font-style: normal; color: var(--terracotta); display: block; }
+.case-subtitle {
+  font-family: 'DM Sans', sans-serif; font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-style: italic; font-weight: 300; color: var(--ink-soft);
+  max-width: 42rem; line-height: 1.65; margin-bottom: 3.5rem;
+}
+.case-meta {
+  display: flex; flex-wrap: wrap; gap: 2.5rem;
+  border-top: 1px solid var(--warm-light); padding-top: 2rem;
+}
+.case-meta-item { display: flex; flex-direction: column; gap: 0.35rem; }
+.case-meta-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+  font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warm-mid);
+}
+.case-meta-value { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--ink-soft); }
+.case-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem; }
+.case-tag {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--terracotta);
+  border: 1px solid var(--terracotta); border-radius: 100px; padding: 0.3rem 0.85rem;
+}
+
+/* ── HERO IMAGE ── */
+.case-hero-image {
+  margin-top: 4rem; border-radius: 6px; overflow: hidden;
+  background: var(--ink); aspect-ratio: 16/7;
+  display: flex; align-items: center; justify-content: center;
+}
+.case-hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.case-hero-image-placeholder {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: rgba(242,237,227,0.25);
+}
+
+/* ── BODY ── */
+.case-body { max-width: 72rem; margin: 0 auto; padding: 0 var(--pad); }
+
+.case-section {
+  padding: 5rem 0; border-bottom: 1px solid var(--warm-light);
+}
+.case-section:last-of-type { border-bottom: none; }
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--warm-mid);
+  margin-bottom: 3rem; display: flex; align-items: center; gap: 0.75rem;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--warm-light); }
+
+/* ── TYPOGRAPHY ── */
+.section-heading {
+  font-family: 'Emilea', serif; font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 300; line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--ink); margin-bottom: 1.5rem;
+}
+.section-heading em { font-style: italic; color: var(--terracotta); }
+
+.subsection-heading {
+  font-family: 'Emilea', serif; font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+  font-weight: 300; line-height: 1.15; color: var(--ink);
+  margin-bottom: 1rem; margin-top: 3rem;
+}
+
+.step-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--terracotta);
+  margin-bottom: 0.5rem; display: block;
+}
+
+p.body-copy {
+  font-family: 'DM Sans', sans-serif; font-size: 1rem;
+  line-height: 1.75; color: var(--ink-soft); margin-bottom: 1.25rem;
+}
+p.body-copy:last-child { margin-bottom: 0; }
+
+.pull-quote {
+  font-family: 'Emilea', serif; font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-style: italic; font-weight: 300; line-height: 1.4; color: var(--ink);
+  border-left: 2px solid var(--terracotta); padding-left: 1.75rem; margin: 2.5rem 0;
+}
+
+/* ── LAYOUTS ── */
+.two-col {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+}
+.two-col-wide {
+  display: grid; grid-template-columns: 5fr 6fr; gap: 4rem; align-items: start;
+}
+
+/* ── CHALLENGE BLOCKS ── */
+.challenge-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem;
+}
+.challenge-card {
+  padding: 2rem; background: var(--ink); border-radius: 4px;
+}
+.challenge-card-num {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--terra-pale);
+  margin-bottom: 1rem; display: block;
+}
+.challenge-card h4 {
+  font-family: 'Emilea', serif; font-size: 1.2rem; font-weight: 300;
+  color: var(--parchment); margin-bottom: 0.6rem; line-height: 1.2;
+}
+.challenge-card p {
+  font-family: 'DM Sans', sans-serif; font-size: 0.875rem;
+  line-height: 1.65; color: rgba(242,237,227,0.65);
+}
+
+/* ── PERSONA CARDS ── */
+.persona-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem; }
+
+.persona-card { border: 1px solid var(--warm-light); border-radius: 6px; overflow: hidden; }
+
+.persona-header {
+  display: flex; align-items: center; gap: 1.25rem;
+  padding: 1.75rem 2rem; background: var(--ink);
+}
+.persona-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 1px solid rgba(242,237,227,0.2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--terra-pale); flex-shrink: 0;
+}
+.persona-name {
+  font-family: 'Emilea', serif; font-size: 1.2rem; font-weight: 300;
+  color: var(--parchment); line-height: 1.2; margin-bottom: 0.25rem;
+}
+.persona-type {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--terra-pale);
+}
+
+.persona-body { padding: 1.75rem 2rem; background: var(--cream); }
+
+.persona-section-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--terracotta);
+  margin-bottom: 0.75rem; margin-top: 1.25rem; display: block;
+}
+.persona-section-label:first-child { margin-top: 0; }
+
+ul.persona-list { list-style: none; padding: 0; }
+ul.persona-list li {
+  font-family: 'DM Sans', sans-serif; font-size: 0.875rem;
+  line-height: 1.6; color: var(--ink-soft);
+  padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem;
+}
+ul.persona-list li::before {
+  content: '—'; position: absolute; left: 0; color: var(--warm-mid);
+}
+
+/* ── PROCESS STEPS ── */
+.process-steps {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1.5rem; margin-top: 2rem;
+}
+.process-step {
+  padding: 1.75rem; background: var(--cream);
+  border: 1px solid var(--warm-light); border-radius: 4px;
+}
+.process-step-num {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--terracotta);
+  margin-bottom: 0.75rem; display: block;
+}
+.process-step h4 {
+  font-family: 'Emilea', serif; font-size: 1.1rem; font-weight: 300;
+  color: var(--ink); margin-bottom: 0.5rem; line-height: 1.2;
+}
+.process-step p {
+  font-family: 'DM Sans', sans-serif; font-size: 0.875rem;
+  line-height: 1.65; color: var(--ink-soft);
+}
+
+/* ── ABOVE THE FOLD ── */
+.atf-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; margin-top: 2rem;
+  border: 1px solid var(--warm-light); border-radius: 4px; overflow: hidden;
+}
+.atf-item {
+  padding: 1.5rem; border-right: 1px solid var(--warm-light);
+  border-bottom: 1px solid var(--warm-light);
+}
+.atf-item:nth-child(3n) { border-right: none; }
+.atf-item:nth-last-child(-n+3) { border-bottom: none; }
+.atf-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta);
+  margin-bottom: 0.4rem; display: block;
+}
+.atf-value {
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+  color: var(--ink-soft); line-height: 1.5;
+}
+
+/* ── CALLOUT ── */
+.callout {
+  background: var(--cream); border: 1px solid var(--warm-light);
+  border-left: 3px solid var(--terracotta);
+  border-radius: 0 4px 4px 0; padding: 1.5rem 1.75rem; margin: 2rem 0;
+}
+.callout-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta);
+  margin-bottom: 0.5rem; display: block;
+}
+.callout p {
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+  line-height: 1.65; color: var(--ink-soft);
+}
+
+/* ── CONSTRAINT CARDS ── */
+.constraint-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem;
+}
+.constraint-card {
+  padding: 2rem; border: 1px solid var(--warm-light);
+  border-radius: 4px; background: var(--cream);
+}
+.constraint-card-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--terracotta);
+  margin-bottom: 0.75rem; display: block;
+}
+.constraint-card h4 {
+  font-family: 'Emilea', serif; font-size: 1.15rem; font-weight: 300;
+  color: var(--ink); margin-bottom: 0.6rem; line-height: 1.2;
+}
+.constraint-card p {
+  font-family: 'DM Sans', sans-serif; font-size: 0.875rem;
+  line-height: 1.65; color: var(--ink-soft);
+}
+
+/* ── IMAGE BLOCKS ── */
+.case-image {
+  width: 100%; border-radius: 4px; overflow: hidden;
+  background: var(--cream); border: 1px solid var(--warm-light); margin: 2.5rem 0;
+}
+.case-image img { width: 100%; display: block; }
+.case-image-placeholder {
+  aspect-ratio: 16/9; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.75rem;
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-mid);
+}
+.nda-badge {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+  font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-soft); border: 1px solid var(--warm-light);
+  border-radius: 100px; padding: 0.45rem 1rem; background: var(--parchment);
+}
+.nda-badge svg { flex-shrink: 0; }
+.image-caption {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+  letter-spacing: 0.08em; color: var(--warm-mid);
+  padding: 0.75rem 1rem; border-top: 1px solid var(--warm-light);
+}
+.image-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 2.5rem 0;
+}
+
+/* ── STAT ROW ── */
+.stat-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+  margin: 3rem 0; padding: 2.5rem 0;
+  border-top: 1px solid var(--warm-light); border-bottom: 1px solid var(--warm-light);
+}
+.stat-number {
+  font-family: 'Emilea', serif; font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 300; line-height: 1; color: var(--terracotta); display: block; margin-bottom: 0.5rem;
+}
+.stat-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft);
+}
+
+/* ── DSD CARD ── */
+.dsd-card {
+  background: var(--ink); border-radius: 6px; padding: 3rem;
+  display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center;
+  margin-top: 3rem;
+}
+.dsd-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--terra-pale);
+  margin-bottom: 0.75rem; display: block;
+}
+.dsd-title {
+  font-family: 'Emilea', serif; font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 300; color: var(--parchment); line-height: 1.1; margin-bottom: 1rem;
+}
+.dsd-body {
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+  line-height: 1.65; color: rgba(242,237,227,0.6);
+}
+.dsd-badge {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--terra-pale);
+  border: 1px solid rgba(196,131,111,0.4); border-radius: 100px;
+  padding: 0.6rem 1.25rem; white-space: nowrap; text-align: center;
+}
+
+/* ── NEXT CASE ── */
+.next-case {
+  background: var(--ink); padding: 5rem var(--pad);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 2rem; flex-wrap: wrap; text-decoration: none; transition: background 0.3s;
+}
+.next-case:hover { background: #141a11; }
+.next-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(242,237,227,0.38); margin-bottom: 0.75rem;
+}
+.next-title {
+  font-family: 'Emilea', serif; font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 300; color: var(--parchment); line-height: 1.05; letter-spacing: -0.02em;
+}
+.next-title em { font-style: normal; color: var(--terracotta); }
+.next-arrow {
+  width: 3.5rem; height: 3.5rem; border: 1px solid rgba(242,237,227,0.18);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: border-color 0.25s, transform 0.25s;
+}
+.next-case:hover .next-arrow { border-color: var(--terracotta); transform: translateX(4px); }
+
+/* ── FOOTER ── */
+footer {
+  padding: 1.75rem var(--pad); background: var(--ink);
+  border-top: 1px solid rgba(242,237,227,0.07);
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
+}
+footer p {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+  color: rgba(242,237,227,0.28); letter-spacing: 0.04em;
+}
+.footer-links { display: flex; gap: 2rem; list-style: none; }
+footer a {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+  color: rgba(242,237,227,0.38); text-decoration: none;
+  letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.22s;
+}
+footer a:hover { color: var(--terracotta); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .two-col, .two-col-wide { grid-template-columns: 1fr; gap: 2.5rem; }
+  .challenge-grid { grid-template-columns: 1fr; }
+  .persona-grid { grid-template-columns: 1fr; }
+  .constraint-grid { grid-template-columns: 1fr; }
+  .atf-grid { grid-template-columns: 1fr 1fr; }
+  .dsd-card { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .image-grid { grid-template-columns: 1fr; }
+  .atf-grid { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-name">BHG</a>
+  <a href="index.html#work" class="nav-back">
+    <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
+      <path d="M6 1L1 5M1 5L6 9M1 5H15" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Back to work
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="case-hero">
+  <div class="case-hero-inner">
+    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+      <img src="images/logo-lseg.png" alt="LSEG" style="width: 48px; height: 48px; border-radius: 12px; display: block;">
+      <p class="case-eyebrow" style="margin-bottom: 0;">LSEG &nbsp;·&nbsp; 2024</p>
+    </div>
+    <h1 class="case-title">Digital Markets<em>Infrastructure.</em></h1>
+    <p class="case-subtitle">Designing a two-sided platform connecting fund managers and investors — under regulatory constraints that shaped almost every screen.</p>
+
+    <div class="case-meta">
+      <div class="case-meta-item">
+        <span class="case-meta-label">My role</span>
+        <span class="case-meta-value">Lead Product Designer</span>
+      </div>
+      <div class="case-meta-item">
+        <span class="case-meta-label">Team</span>
+        <span class="case-meta-value">3 Microsoft Product Designers</span>
+      </div>
+      <div class="case-meta-item">
+        <span class="case-meta-label">Partner</span>
+        <span class="case-meta-value">Built with Microsoft</span>
+      </div>
+      <div class="case-meta-item">
+        <span class="case-meta-label">Disciplines</span>
+        <div class="case-tags">
+          <span class="case-tag">Platform Design</span>
+          <span class="case-tag">Two-sided Marketplace</span>
+          <span class="case-tag">Regulatory</span>
+          <span class="case-tag">Design Leadership</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-hero-image">
+      <div class="case-hero-image-placeholder" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.75rem;">
+        <span class="nda-badge"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><rect x="1" y="6" width="11" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3.5 6V4.5a3 3 0 0 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>NDA Restricted</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(242,237,227,0.2);">DMI platform screens</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="case-body">
+
+  <!-- OVERVIEW -->
+  <section class="case-section">
+    <p class="section-label">01 &nbsp; Overview</p>
+    <div class="two-col-wide">
+      <div>
+        <h2 class="section-heading">A new kind of <em>digital marketplace.</em></h2>
+        <p class="body-copy">Digital Markets Infrastructure (DMI) connects fund managers and investors through a single digital environment. Built in partnership with Microsoft, DMI was designed to simplify access, improve distribution, and reduce operational friction across private markets and digital assets.</p>
+        <p class="body-copy">The platform needed to work for two fundamentally different kinds of user simultaneously — and do so within a regulatory framework that shaped the design of almost every feature we built.</p>
+      </div>
+      <div>
+        <div class="stat-row" style="grid-template-columns: 1fr; border: none; padding: 0; gap: 1.5rem; margin: 0;">
+          <div>
+            <span class="stat-number">2</span>
+            <span class="stat-label">Distinct user types with competing needs</span>
+          </div>
+          <div>
+            <span class="stat-number">3</span>
+            <span class="stat-label">Core platform areas designed end to end</span>
+          </div>
+          <div>
+            <span class="stat-number">FCA</span>
+            <span class="stat-label">Arranger licence governing every design decision</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE CHALLENGE -->
+  <section class="case-section">
+    <p class="section-label">02 &nbsp; The Challenge</p>
+    <div class="two-col-wide">
+      <div>
+        <h2 class="section-heading">Two audiences.<em>One platform.</em></h2>
+        <p class="body-copy">DMI is a two-sided platform serving both investors and fund managers, with robust regulations in place to protect both parties. The design challenge wasn't just about making something that worked — it was about making something that worked for two completely different kinds of user, often looking at the same data from opposite angles, without ever appearing to favour one over the other.</p>
+      </div>
+      <div>
+        <blockquote class="pull-quote">"We had to always be managing both sides of the story — and doing so within a regulatory framework that left very little room for ambiguity."</blockquote>
+      </div>
+    </div>
+
+    <div class="challenge-grid">
+      <div class="challenge-card">
+        <span class="challenge-card-num">Investors</span>
+        <h4>Engaging enough to decide</h4>
+        <p>The platform needed to surface all the information investors needed to make decisions about a fund and get to know a fund manager — without LSEG being seen to advise or hold an opinion.</p>
+      </div>
+      <div class="challenge-card">
+        <span class="challenge-card-num">Fund Managers</span>
+        <h4>Compelling enough to maintain</h4>
+        <p>Fund Manager Profiles needed to be engaging and customisable enough that fund managers would want to list and actively maintain their presence — without tipping into anything that could be read as LSEG endorsement.</p>
+      </div>
+      <div class="challenge-card">
+        <span class="challenge-card-num">Both directions</span>
+        <h4>Discoverable on their own terms</h4>
+        <p>Investors could find fund managers, but fund managers could also find investors. Both sides needed granular control over their own visibility — all within the strict bounds of the arranger licence.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERSONAS -->
+  <section class="case-section">
+    <p class="section-label">03 &nbsp; The Users</p>
+    <h2 class="section-heading">Opposite ends of <em>the same table.</em></h2>
+    <p class="body-copy">Both user types came to the platform with legitimate, understandable needs — but those needs pointed in different directions. Understanding that tension early was what kept the design coherent throughout.</p>
+
+    <div class="persona-grid">
+      <div class="persona-card">
+        <div class="persona-header">
+          <div class="persona-avatar">
+            <svg width="28" height="28" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="13" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M4 32c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <p class="persona-name">The Fund Manager</p>
+            <p class="persona-type">Supply side</p>
+          </div>
+        </div>
+        <div class="persona-body">
+          <span class="persona-section-label">Goals</span>
+          <ul class="persona-list">
+            <li>Increase reach and visibility of their funds</li>
+            <li>Gain geographical insight into appetite for a fund</li>
+            <li>Market their funds and company as a whole</li>
+            <li>Expand their network of investors</li>
+          </ul>
+          <span class="persona-section-label">Frustrations</span>
+          <ul class="persona-list">
+            <li>Difficult to get meaningful insights into projected geographic and demographic fit</li>
+            <li>Difficult to build relationships with investors</li>
+            <li>Investors don't always want to connect on the fund manager's "turf" — a more neutral ground would help bridge the gap</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="persona-card">
+        <div class="persona-header">
+          <div class="persona-avatar">
+            <svg width="28" height="28" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="13" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M4 32c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <p class="persona-name">The Investor</p>
+            <p class="persona-type">Demand side</p>
+          </div>
+        </div>
+        <div class="persona-body">
+          <span class="persona-section-label">Goals</span>
+          <ul class="persona-list">
+            <li>Discover funds and fund managers</li>
+            <li>Get all the information necessary to make an informed decision</li>
+            <li>Compare up to 5 funds side by side on one screen</li>
+            <li>Maintain privacy while remaining discoverable to fund managers</li>
+          </ul>
+          <span class="persona-section-label">Frustrations</span>
+          <ul class="persona-list">
+            <li>Don't always want to be discoverable — but might want to open the door</li>
+            <li>Famously cautious; don't want to be "sold to"</li>
+            <li>Want access to concrete facts without having to discern the fluff from the substance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUND MANAGER PROFILES -->
+  <section class="case-section">
+    <p class="section-label">04 &nbsp; Fund Manager Profiles</p>
+
+    <div class="two-col-wide">
+      <div>
+        <h2 class="section-heading">The information <em>density problem.</em></h2>
+        <p class="body-copy">Fund Manager Profiles sit at the centre of an information density problem: fund managers own information they're legally required or commercially motivated to disclose, and investors need enough of it to make an informed decision. But a profile that reads like a spreadsheet prevents meaningful engagement, and blocks the relationship-building that actually drives the business.</p>
+      </div>
+      <div>
+        <blockquote class="pull-quote">"A profile that reads like a spreadsheet prevents the relationship-building that actually drives the business."</blockquote>
+      </div>
+    </div>
+
+    <div class="case-image">
+      <div class="case-image-placeholder">
+        <span class="nda-badge"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><rect x="1" y="6" width="11" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3.5 6V4.5a3 3 0 0 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>NDA Restricted</span>
+        <span>Fund Manager Profile — full view</span>
+      </div>
+      <div class="image-caption">Fund Manager Profile screen — final design</div>
+    </div>
+
+    <span class="step-label" style="margin-top: 3rem; display: block;">Discovery</span>
+    <h3 class="subsection-heading" style="margin-top: 0.5rem;">Starting with empathy, not assumptions.</h3>
+    <p class="body-copy">Product wanted the design phase to start immediately, aiming to hit as many milestones early or on time as possible. I always encourage rapid prototyping and rapid failure in my teams, but I also wanted to protect against unnecessary rework for design and engineering further downstream. So we started with empathy and wireframing workshops.</p>
+    <p class="body-copy">No one on our team was an investor or a fund manager, so our empathy could only reach so far. I pushed hard for the Solutions team and Product — who both had close relationships with prospective users — to set up design-exploration sessions so we could go beyond assumption. In the meantime, we got moving on initial wireframes and journey structures, then built these into hi-fi screens to bring in front of prospective users.</p>
+
+    <div class="image-grid">
+      <div class="case-image" style="margin: 0;">
+        <div class="case-image-placeholder" style="aspect-ratio: 4/3;">
+          <span class="nda-badge"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><rect x="1" y="6" width="11" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3.5 6V4.5a3 3 0 0 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>NDA Restricted</span>
+          <span>Early wireframes</span>
+        </div>
+        <div class="image-caption">Initial wireframe exploration</div>
+      </div>
+      <div class="case-image" style="margin: 0;">
+        <div class="case-image-placeholder" style="aspect-ratio: 4/3;">
+          <span class="nda-badge"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><rect x="1" y="6" width="11" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3.5 6V4.5a3 3 0 0 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>NDA Restricted</span>
+          <span>Journey mapping</span>
+        </div>
+        <div class="image-caption">Journey structure workshop output</div>
+      </div>
+    </div>
+
+    <span class="step-label" style="margin-top: 3rem; display: block;">Reframing the feature</span>
+    <h3 class="subsection-heading" style="margin-top: 0.5rem;">One question changed everything.</h3>
+    <p class="body-copy">Our first pass at what we'd internally called "Favourite Funds" landed flat. When we asked users directly, "Is this something you feel is missing from other platforms you use?", they were polite but visibly unconvinced. The framing was too retail, not tuned to how they actually worked.</p>
+    <p class="body-copy">The follow-up question opened up an engaged dialogue: "What process flows do you work with regularly that make having lists or groupings of funds most useful to you?"</p>
+
+    <blockquote class="pull-quote">"We'd focus more on short and long listing funds than favouriting them per se. We'd take that data to other areas of the business and to client meetings."</blockquote>
+
+    <p class="body-copy">From there we nailed down specifics fast. A limit of 5 funds for a short list and 10 for a long list immediately gave confirmation and guidance for the design. We didn't need to cater for 20+ funds in a comparison. Custom categories, and clarity around which information needed to sit above the fold, helped build a picture of what the overall landing state of the main fund screen should look like and the purpose it was serving.</p>
+    <p class="body-copy">We reviewed existing Fund Fact Sheets, mapped their informational hierarchy, and workshopped how to present the same data in a way that felt considered rather than collated.</p>
+
+    <div class="case-image">
+      <div class="case-image-placeholder">
+        <span class="nda-badge"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><rect x="1" y="6" width="11" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3.5 6V4.5a3 3 0 0 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>NDA Restricted</span>
+        <span>Fund comparison — short list and long list views</span>
+      </div>
+      <div class="image-caption">Fund Interest board — short list (5 funds) and long list (10 funds)</div>
+    </div>
+
+    <span class="step-label" style="margin-top: 3rem; display: block;">The decisions</span>
+    <h3 class="subsection-heading" style="margin-top: 0.5rem;">What sits above the fold.</h3>
+    <p class="body-copy">We prioritised the highest-signal information above the fold, keeping everything else a scroll away within a tab component — giving a scroll-free data navigation experience without overwhelming the initial view.</p>
+
+    <div class="atf-grid">
+      <div class="atf-item">
+        <span class="atf-label">Fund name</span>
+        <span class="atf-value">Primary identifier, always visible</span>
+      </div>
+      <div class="atf-item">
+        <span class="atf-label">Fund manager logo</span>
+        <span class="atf-value">Brand identity without LSEG endorsement</span>
+      </div>
+      <div class="atf-item">
+        <span class="atf-label">Geographic focus</span>
+        <span class="atf-value">Key decision signal for investors</span>
+      </div>
+      <div class="atf-item">
+        <span class="atf-label">Sector focus</span>
+        <span class="atf-value">Rapid relevance filter</span>
+      </div>
+      <div class="atf-item">
+        <span class="atf-label">Fund summary</span>
+        <span class="atf-value">Quick orientation before deeper reading</span>
+      </div>
+      <div class="atf-item">
+        <span class="atf-label">Two CTAs</span>
+        <span class="atf-value">"Submit IOI" and "Learn more"</span>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 2rem;">
+      <span class="callout-label">A note on "Submit IOI"</span>
+      <p>I pushed back on this wording — it is vague, unfamiliar, and uninformative for most users. However, we were on a directive from the FCA and our legal teams to specifically use this wording. The regulatory constraint won, and the design accommodated it as clearly as possible.</p>
+    </div>
+
+    <p class="body-copy" style="margin-top: 2rem;">We settled on a mainly card-based layout to maintain visual harmony and calm. Only one data table per section or tab to prevent data overwhelm, and a consistent icon set that had purpose and didn't interfere with the fund manager's branding. The profile screens needed to look like LSEG's DMI platform, without overshadowing the fund manager itself.</p>
+
+    <div class="image-grid">
+      <div class="case-image" style="margin: 0;">
+        <div class="case-image-placeholder" style="aspect-ratio: 4/3;">
+          <span class="nda-badge"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><rect x="1" y="6" width="11" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3.5 6V4.5a3 3 0 0 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>NDA Restricted</span>
+          <span>Profile — above the fold</span>
+        </div>
+        <div class="image-caption">Above the fold state</div>
+      </div>
+      <div class="case-image" style="margin: 0;">
+        <div class="case-image-placeholder" style="aspect-ratio: 4/3;">
+          <span class="nda-badge"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><rect x="1" y="6" width="11" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3.5 6V4.5a3 3 0 0 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>NDA Restricted</span>
+          <span>Profile — tab navigation</span>
+        </div>
+        <div class="image-caption">Tab component for secondary information</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPORT CHALLENGE -->
+  <section class="case-section">
+    <p class="section-label">05 &nbsp; The Export Challenge</p>
+
+    <div class="two-col-wide">
+      <div>
+        <h2 class="section-heading">Bridging two <em>different worlds.</em></h2>
+        <p class="body-copy">A recurring requirement across both investor and fund manager journeys was the ability to export data to .csv, bridging the polished in-platform experience with the spreadsheet-based workflows both sides still relied on day to day.</p>
+        <p class="body-copy">Investors wanted to pull fund comparison data into their own due-diligence macros and data processing tools. The exported sheets had to be as filterable, flexible, and functional as the spreadsheets they were used to. The hierarchy of data on screen had to match the hierarchy of data in the sheet, so users could mentally map where something they'd seen on screen would live once exported.</p>
+      </div>
+      <div>
+        <blockquote class="pull-quote">"Was the data on screen humanised or machine-readable by default? It opened up a question with implications for every field on the platform."</blockquote>
+      </div>
+    </div>
+
+    <div class="process-steps">
+      <div class="process-step">
+        <span class="process-step-num">The question</span>
+        <h4>Humanised or machine-readable?</h4>
+        <p>Every field on screen needed a clean, exportable counterpart. After discussions with Engineering and Legal, we decided to humanise the data on screen and create a machine-readable counterpart for the .csv export.</p>
+      </div>
+      <div class="process-step">
+        <span class="process-step-num">The benchmark</span>
+        <h4>Matching existing mental models</h4>
+        <p>We looked at how the same data was presented in the other platforms and tools users already worked in day to day, and let that steer expectations — balanced against engineering's ticket load and Day 1 vs. Day 2+ priorities.</p>
+      </div>
+      <div class="process-step">
+        <span class="process-step-num">The constraint</span>
+        <h4>Neutral colour, always</h4>
+        <p>LSEG can't be seen to hold a position on any given fund. We couldn't use green for a fund that had risen, red for a decline — that reads as a value judgement. All fund movement indicators had to exist in the same neutral colour, with directional arrows as the only visual cue.</p>
+      </div>
+    </div>
+
+    <div class="case-image">
+      <div class="case-image-placeholder">
+        <span class="nda-badge"><svg width="13" height="15" viewBox="0 0 13 15" fill="none"><rect x="1" y="6" width="11" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3.5 6V4.5a3 3 0 0 1 6 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>NDA Restricted</span>
+        <span>.csv export and on-screen data hierarchy</span>
+      </div>
+      <div class="image-caption">Data hierarchy mapping: screen view vs. export structure</div>
+    </div>
+  </section>
+
+  <!-- CONSTRAINTS & PROCESS -->
+  <section class="case-section">
+    <p class="section-label">06 &nbsp; Constraints &amp; Process</p>
+
+    <h2 class="section-heading">Designing within <em>the licence.</em></h2>
+    <p class="body-copy">An FCA firm holding only the Arranging Deals in Investments permission operates strictly as an intermediary. Two restrictions in particular shaped almost every screen on this platform.</p>
+
+    <div class="constraint-grid">
+      <div class="constraint-card">
+        <span class="constraint-card-label">Restriction 01</span>
+        <h4>No automated advice</h4>
+        <p>Without a separate "Advising on Investments" permission, we could not give personal investment recommendations. The platform could surface facts and comparisons, but could never rank, score, or imply a fund was a good or bad choice.</p>
+      </div>
+      <div class="constraint-card">
+        <span class="constraint-card-label">Restriction 02</span>
+        <h4>No dealing as principal</h4>
+        <p>We couldn't buy or sell investments using LSEG's own balance sheet or market-make. DMI's role was to connect and inform — never to hold a stake in the outcome. Almost every feature that could nudge a user toward a specific fund had to be redesigned to present information neutrally.</p>
+      </div>
+    </div>
+
+    <h3 class="subsection-heading">Managing both sides.</h3>
+    <p class="body-copy">Some fund managers wanted full autonomy over how their data was presented, what to include, what to leave out, and in some cases more expansive design and branding options. Although we could see the value in this, we had to maintain a consistent user journey to build visual muscle memory for our users, and ensure we were treating all customers fairly.</p>
+    <p class="body-copy">On the other side, investors wanted access to all the fund information without ever having to reveal themselves to the fund manager. But fund managers didn't want all of their fund data to be public knowledge either. We had to treat both sides with fairness and equal compromise where needed.</p>
+
+    <h3 class="subsection-heading">Quality vs. speed.</h3>
+    <p class="body-copy">The age-old balancing act. We had to balance delivery milestones and roadmap against designing a high-quality experience, prioritising Day 1 and Day 2-and-beyond features and enhancements. With any grassroots platform like this, there's always scope creep, and leadership will always want to see a product with as many features as quickly as possible, even at the cost of quality.</p>
+    <p class="body-copy">I manage this as best I can by always speaking up for user experience and championing our users in meetings, no matter who is in the room — bringing meaningful justifications and explanations to the table instead of open-ended "what about the customers?" It's important to get leadership on board and bring them with you, instead of criticising and leaving them behind.</p>
+  </section>
+
+  <!-- REFLECTION -->
+  <section class="case-section">
+    <p class="section-label">07 &nbsp; Reflection</p>
+
+    <div class="two-col-wide">
+      <div>
+        <h2 class="section-heading">What I'd <em>do differently.</em></h2>
+        <p class="body-copy">If I were starting DMI again, I'd push to engage compliance and legal earlier, and push UX even further to the left. The roadmaps were built with features that had been prioritised in loose discussions with prospective users — we need that UX voice in those meetings and in those rooms, to see a gap in the wall and keep digging to find the value behind it.</p>
+        <p class="body-copy">I'd question the conversations and decisions that had led to features being prioritised, and ask further clarifying questions to make sure the features we were building were truly fit for purpose. In the words of Anthony J. D'Angelo: you don't reinvent the wheel, just realign it.</p>
+      </div>
+      <div>
+        <blockquote class="pull-quote">"You don't reinvent the wheel, just realign it." <br><span style="font-size: 0.85em; color: var(--warm-mid);">Anthony J. D'Angelo</span></blockquote>
+      </div>
+    </div>
+
+    <!-- DSD CARD -->
+    <div class="dsd-card">
+      <div>
+        <span class="dsd-label">What's next</span>
+        <p class="dsd-title">Digital Securities Depository</p>
+        <p class="dsd-body">The learnings from DMI are being carried directly into the ground-up design of the Digital Securities Depository (DSD) — LSEG's next major platform, covering all user journeys from scratch. Launching September 2026.</p>
+      </div>
+      <div class="dsd-badge">Launching<br>Sept 2026</div>
+    </div>
+  </section>
+
+</div>
+
+<!-- NEXT CASE STUDY -->
+<a href="zempler-cop.html" class="next-case">
+  <div>
+    <p class="next-label">Next case study</p>
+    <p class="next-title">Zempler Bank<em> APP Fraud Prevention</em></p>
+  </div>
+  <div class="next-arrow">
+    <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+      <path d="M11 1L17 7M17 7L11 13M17 7H1" stroke="rgba(242,237,227,0.6)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Bethany Huff Guelbert &nbsp;·&nbsp; made with tea + conviction</p>
+  <ul class="footer-links">
+    <li><a href="https://thebhg.co.uk" target="_blank" rel="noopener">thebhg.co.uk</a></li>
+    <li><a href="mailto:bethany.huffguelbert@gmail.com">Email</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
