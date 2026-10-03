@@ -18,15 +18,16 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --parchment:  #F2EDE3;
-  --cream:      #FAF8F3;
-  --ink:        #1C2318;
-  --ink-soft:   #3A4336;
-  --terracotta: #8B4F3F;
-  --terra-pale: #C4836F;
-  --warm-mid:   #C9B99A;
-  --warm-light: #E4DAC8;
-  --sage:       #5C6B4E;
+  --parchment:  #1A0F1F;
+  --cream:      #261630;
+  --ink:        #F5EEF5;
+  --ink-soft:   #8A7090;
+  --terracotta: #C98CA3;
+  --terra-pale: #8BCEDC;
+  --warm-mid:   #3A1F45;
+  --warm-light: #2D1A3A;
+  --sage:       #6B4A7A;
+  --deep:       #0D0810;
   --pad: clamp(1.5rem, 5vw, 5rem);
 }
 
@@ -47,7 +48,7 @@ nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   padding: 1.25rem var(--pad);
   display: flex; justify-content: space-between; align-items: center;
-  background: rgba(242,237,227,0.93);
+  background: rgba(26, 15, 31, 0.93);
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--warm-light);
 }
@@ -73,7 +74,7 @@ nav {
 }
 .case-hero::before {
   content: ''; position: absolute; inset: 0;
-  background-image: radial-gradient(circle, rgba(139,79,63,0.18) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(139,206,220,0.07) 1px, transparent 1px);
   background-size: 32px 32px; pointer-events: none; z-index: 0;
 }
 .case-hero-inner { position: relative; z-index: 1; max-width: 72rem; margin: 0 auto; }
@@ -118,7 +119,7 @@ nav {
 /* ── HERO IMAGE ── */
 .case-hero-image {
   margin-top: 4rem; border-radius: 6px; overflow: hidden;
-  background: var(--ink); aspect-ratio: 16/7;
+  background: var(--deep); aspect-ratio: 16/7;
   display: flex; align-items: center; justify-content: center;
 }
 .case-hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -187,7 +188,7 @@ p.body-copy:last-child { margin-bottom: 0; }
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem;
 }
 .challenge-card {
-  padding: 2rem; background: var(--ink); border-radius: 4px;
+  padding: 2rem; background: var(--deep); border-radius: 4px;
 }
 .challenge-card-num {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
@@ -210,7 +211,7 @@ p.body-copy:last-child { margin-bottom: 0; }
 
 .persona-header {
   display: flex; align-items: center; gap: 1.25rem;
-  padding: 1.75rem 2rem; background: var(--ink);
+  padding: 1.75rem 2rem; background: var(--deep);
 }
 .persona-avatar {
   width: 48px; height: 48px; border-radius: 50%;
@@ -375,7 +376,7 @@ ul.persona-list li::before {
 
 /* ── DSD CARD ── */
 .dsd-card {
-  background: var(--ink); border-radius: 6px; padding: 3rem;
+  background: var(--deep); border-radius: 6px; padding: 3rem;
   display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center;
   margin-top: 3rem;
 }
@@ -401,7 +402,7 @@ ul.persona-list li::before {
 
 /* ── NEXT CASE ── */
 .next-case {
-  background: var(--ink); padding: 5rem var(--pad);
+  background: var(--deep); padding: 5rem var(--pad);
   display: flex; align-items: center; justify-content: space-between;
   gap: 2rem; flex-wrap: wrap; text-decoration: none; transition: background 0.3s;
 }
@@ -425,7 +426,7 @@ ul.persona-list li::before {
 
 /* ── FOOTER ── */
 footer {
-  padding: 1.75rem var(--pad); background: var(--ink);
+  padding: 1.75rem var(--pad); background: var(--deep);
   border-top: 1px solid rgba(242,237,227,0.07);
   display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
 }

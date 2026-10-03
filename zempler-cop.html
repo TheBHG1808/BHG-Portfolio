@@ -20,15 +20,16 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --parchment:  #F2EDE3;
-  --cream:      #FAF8F3;
-  --ink:        #1C2318;
-  --ink-soft:   #3A4336;
-  --terracotta: #8B4F3F;
-  --terra-pale: #C4836F;
-  --warm-mid:   #C9B99A;
-  --warm-light: #E4DAC8;
-  --sage:       #5C6B4E;
+  --parchment:  #1A0F1F;
+  --cream:      #261630;
+  --ink:        #F5EEF5;
+  --ink-soft:   #8A7090;
+  --terracotta: #C98CA3;
+  --terra-pale: #8BCEDC;
+  --warm-mid:   #3A1F45;
+  --warm-light: #2D1A3A;
+  --sage:       #6B4A7A;
+  --deep:       #0D0810;
   --pad: clamp(1.5rem, 5vw, 5rem);
 }
 
@@ -53,7 +54,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(242, 237, 227, 0.93);
+  background: rgba(26, 15, 31, 0.93);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--warm-light);
@@ -97,7 +98,7 @@ nav {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(139,79,63,0.18) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(139,206,220,0.07) 1px, transparent 1px);
   background-size: 32px 32px;
   pointer-events: none;
   z-index: 0;
@@ -530,7 +531,7 @@ ul.case-list li::before {
 
 /* ── NEXT CASE STUDY ── */
 .next-case {
-  background: var(--ink);
+  background: var(--deep);
   padding: 5rem var(--pad);
   display: flex;
   align-items: center;
@@ -586,7 +587,7 @@ ul.case-list li::before {
 /* ── FOOTER ── */
 footer {
   padding: 1.75rem var(--pad);
-  background: var(--ink);
+  background: var(--deep);
   border-top: 1px solid rgba(242,237,227,0.07);
   display: flex;
   justify-content: space-between;
@@ -646,7 +647,7 @@ footer a:hover { color: var(--terracotta); }
   align-items: center;
   gap: 1.25rem;
   padding: 1.75rem 2rem;
-  background: var(--ink);
+  background: var(--deep);
   border-bottom: 1px solid rgba(242,237,227,0.1);
 }
 
